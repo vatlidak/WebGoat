@@ -38,12 +38,12 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
 
   @PostMapping("/VulnerableComponents/attack1")
   public @ResponseBody AttackResult completed(@RequestParam String payload) {
-    XStream xstream = new XStream();
+ //   XStream xstream = new XStream();
     xstream.setClassLoader(Contact.class.getClassLoader());
     xstream.alias("contact", ContactImpl.class);
     xstream.ignoreUnknownElements();
     Contact contact = null;
-
+    String payload2;
     try {
       if (!StringUtils.isEmpty(payload)) {
         payload =
@@ -54,7 +54,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
                 .replace("> ", ">")
                 .replace(" <", "<");
       }
-      contact = (Contact) xstream.fromXML(payload);
+      contact = (Contact) xstream.fromXML(payload2);
     } catch (Exception ex) {
       return failed(this).feedback("vulnerable-components.close").output(ex.getMessage()).build();
     }
