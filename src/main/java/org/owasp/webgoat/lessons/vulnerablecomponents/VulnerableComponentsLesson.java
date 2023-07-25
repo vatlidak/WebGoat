@@ -43,7 +43,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
     xstream.alias("contact", ContactImpl.class);
     xstream.ignoreUnknownElements();
     Contact contact = null;
-
+    String payload2;
     try {
       if (!StringUtils.isEmpty(payload)) {
         payload =
@@ -54,7 +54,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
                 .replace("> ", ">")
                 .replace(" <", "<");
       }
-      contact = (Contact) xstream.fromXML(payload);
+      contact = (Contact) xstream.fromXML(payload2);
     } catch (Exception ex) {
       return failed(this).feedback("vulnerable-components.close").output(ex.getMessage()).build();
     }
