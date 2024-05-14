@@ -22,6 +22,8 @@
 
 package org.owasp.webgoat.lessons.sqlinjection.mitigation;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -90,4 +92,17 @@ public class Servers {
     }
     return servers;
   }
+
+  // Add an example of a FAST weakness
+  void newMethod(@RequestParam String userControlled) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      try (PreparedStatement statement =
+          connection.prepareStatement(
+              "select id order by " + userControlled)) {
+        try (var rs = statement.executeQuery()) {}
+      }
+    }
+  }
 }
+
+
